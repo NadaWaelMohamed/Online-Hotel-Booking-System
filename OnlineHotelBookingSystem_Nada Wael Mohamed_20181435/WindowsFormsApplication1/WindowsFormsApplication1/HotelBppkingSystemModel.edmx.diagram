@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3665e084920041d785eca308400fb323" Name="Diagram1">
+        <EntityTypeShape EntityType="Model1.Administator" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Customer_Service_Team" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Hotel" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Room" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.SignUp" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.User" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="Model1.FK_Hotel_Name" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.FK_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.dpo_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.Administrator_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.Room_Administrator" ManuallyRouted="false" />
+        <AssociationConnector Association="Model1.User_CustomerService" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

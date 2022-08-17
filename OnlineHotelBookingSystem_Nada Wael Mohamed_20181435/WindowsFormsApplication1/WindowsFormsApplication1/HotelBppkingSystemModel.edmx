@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administator">
+          <Key>
+            <PropertyRef Name="Administrator_Id" />
+          </Key>
+          <Property Name="Administrator_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Administrator_Room">
+          <Key>
+            <PropertyRef Name="Administrator_Id" />
+            <PropertyRef Name="Room_Id" />
+          </Key>
+          <Property Name="Administrator_Id" Type="int" Nullable="false" />
+          <Property Name="Room_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer_Service_Team">
+          <Key>
+            <PropertyRef Name="CustomerService_Id" />
+          </Key>
+          <Property Name="CustomerService_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="Hotal_Name" />
+          </Key>
+          <Property Name="Hotal_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hotel_Reviews" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hotel_Location" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_Id" />
+          </Key>
+          <Property Name="Room_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hotal_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Room_Administrator">
+          <Key>
+            <PropertyRef Name="Administrator_Id" />
+            <PropertyRef Name="Room_Id" />
+          </Key>
+          <Property Name="Administrator_Id" Type="int" Nullable="false" />
+          <Property Name="Room_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SignUp">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hotal_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User_CustomerService">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="CustomerService_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerService_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="dpo_User">
+          <End Role="SignUp" Type="Self.SignUp" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SignUp">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Administrator_id">
+          <End Role="Administator" Type="Self.Administator" Multiplicity="1" />
+          <End Role="Administrator_Room" Type="Self.Administrator_Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administator">
+              <PropertyRef Name="Administrator_Id" />
+            </Principal>
+            <Dependent Role="Administrator_Room">
+              <PropertyRef Name="Administrator_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Administrator_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="Administrator_Room" Type="Self.Administrator_Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_Id" />
+            </Principal>
+            <Dependent Role="Administrator_Room">
+              <PropertyRef Name="Room_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerService_Id">
+          <End Role="Customer_Service_Team" Type="Self.Customer_Service_Team" Multiplicity="1" />
+          <End Role="User_CustomerService" Type="Self.User_CustomerService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Service_Team">
+              <PropertyRef Name="CustomerService_Id" />
+            </Principal>
+            <Dependent Role="User_CustomerService">
+              <PropertyRef Name="CustomerService_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Hotel_Name">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Hotal_Name" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Hotal_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Hotal_Name" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Hotal_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Id">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User_CustomerService" Type="Self.User_CustomerService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="User_CustomerService">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKRoom_id">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="Room_Administrator" Type="Self.Room_Administrator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Room_Id" />
+            </Principal>
+            <Dependent Role="Room_Administrator">
+              <PropertyRef Name="Room_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Room_Admistrator">
+          <End Role="Administator" Type="Self.Administator" Multiplicity="1" />
+          <End Role="Room_Administrator" Type="Self.Room_Administrator" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administator">
+              <PropertyRef Name="Administrator_Id" />
+            </Principal>
+            <Dependent Role="Room_Administrator">
+              <PropertyRef Name="Administrator_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="Administator" EntityType="Self.Administator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Administrator_Room" EntityType="Self.Administrator_Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer_Service_Team" EntityType="Self.Customer_Service_Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room_Administrator" EntityType="Self.Room_Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SignUp" EntityType="Self.SignUp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_CustomerService" EntityType="Self.User_CustomerService" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="dpo_User" Association="Self.dpo_User">
+            <End Role="SignUp" EntitySet="SignUp" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Administrator_id" Association="Self.FK_Administrator_id">
+            <End Role="Administator" EntitySet="Administator" />
+            <End Role="Administrator_Room" EntitySet="Administrator_Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Administrator_Room" Association="Self.FK_Administrator_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Administrator_Room" EntitySet="Administrator_Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerService_Id" Association="Self.FK_CustomerService_Id">
+            <End Role="Customer_Service_Team" EntitySet="Customer_Service_Team" />
+            <End Role="User_CustomerService" EntitySet="User_CustomerService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Hotel_Name" Association="Self.FK_Hotel_Name">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room" Association="Self.FK_Room">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Id" Association="Self.FK_User_Id">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_CustomerService" EntitySet="User_CustomerService" />
+          </AssociationSet>
+          <AssociationSet Name="FKRoom_id" Association="Self.FKRoom_id">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Room_Administrator" EntitySet="Room_Administrator" />
+          </AssociationSet>
+          <AssociationSet Name="Room_Admistrator" Association="Self.Room_Admistrator">
+            <End Role="Administator" EntitySet="Administator" />
+            <End Role="Room_Administrator" EntitySet="Room_Administrator" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administator">
+          <Key>
+            <PropertyRef Name="Administrator_Id" />
+          </Key>
+          <Property Name="Administrator_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rooms" Relationship="Self.Administrator_Room" FromRole="Administator" ToRole="Room" />
+          <NavigationProperty Name="Rooms1" Relationship="Self.Room_Administrator" FromRole="Administator" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Customer_Service_Team">
+          <Key>
+            <PropertyRef Name="CustomerService_Id" />
+          </Key>
+          <Property Name="CustomerService_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.User_CustomerService" FromRole="Customer_Service_Team" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="Hotal_Name" />
+          </Key>
+          <Property Name="Hotal_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hotel_Reviews" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hotel_Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Hotel_Name" FromRole="Hotel" ToRole="User" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room" FromRole="Hotel" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Room_Id" />
+          </Key>
+          <Property Name="Room_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hotal_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK_Room" FromRole="Room" ToRole="Hotel" />
+          <NavigationProperty Name="Administators" Relationship="Self.Administrator_Room" FromRole="Room" ToRole="Administator" />
+          <NavigationProperty Name="Administators1" Relationship="Self.Room_Administrator" FromRole="Room" ToRole="Administator" />
+        </EntityType>
+        <EntityType Name="SignUp">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.dpo_User" FromRole="SignUp" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hotal_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK_Hotel_Name" FromRole="User" ToRole="Hotel" />
+          <NavigationProperty Name="SignUp" Relationship="Self.dpo_User" FromRole="User" ToRole="SignUp" />
+          <NavigationProperty Name="Customer_Service_Team" Relationship="Self.User_CustomerService" FromRole="User" ToRole="Customer_Service_Team" />
+        </EntityType>
+        <Association Name="FK_Hotel_Name">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Hotal_Name" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Hotal_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Hotal_Name" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="Hotal_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dpo_User">
+          <End Role="SignUp" Type="Self.SignUp" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SignUp">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Administrator_Room">
+          <End Role="Administator" Type="Self.Administator" Multiplicity="*" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+        </Association>
+        <Association Name="Room_Administrator">
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <End Role="Administator" Type="Self.Administator" Multiplicity="*" />
+        </Association>
+        <Association Name="User_CustomerService">
+          <End Role="Customer_Service_Team" Type="Self.Customer_Service_Team" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Hotel_Booking_SystemEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administators" EntityType="Self.Administator" />
+          <EntitySet Name="Customer_Service_Team" EntityType="Self.Customer_Service_Team" />
+          <EntitySet Name="Hotels" EntityType="Self.Hotel" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="SignUps" EntityType="Self.SignUp" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Hotel_Name" Association="Self.FK_Hotel_Name">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room" Association="Self.FK_Room">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="dpo_User" Association="Self.dpo_User">
+            <End Role="SignUp" EntitySet="SignUps" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Administrator_Room" Association="Self.Administrator_Room">
+            <End Role="Administator" EntitySet="Administators" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="Room_Administrator" Association="Self.Room_Administrator">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Administator" EntitySet="Administators" />
+          </AssociationSet>
+          <AssociationSet Name="User_CustomerService" Association="Self.User_CustomerService">
+            <End Role="Customer_Service_Team" EntitySet="Customer_Service_Team" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Hotel_Booking_SystemEntities1">
+          <EntitySetMapping Name="Administators">
+            <EntityTypeMapping TypeName="Model1.Administator">
+              <MappingFragment StoreEntitySet="Administator">
+                <ScalarProperty Name="Administrator_Id" ColumnName="Administrator_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_Service_Team">
+            <EntityTypeMapping TypeName="Model1.Customer_Service_Team">
+              <MappingFragment StoreEntitySet="Customer_Service_Team">
+                <ScalarProperty Name="CustomerService_Id" ColumnName="CustomerService_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotels">
+            <EntityTypeMapping TypeName="Model1.Hotel">
+              <MappingFragment StoreEntitySet="Hotel">
+                <ScalarProperty Name="Hotal_Name" ColumnName="Hotal_Name" />
+                <ScalarProperty Name="Hotel_Reviews" ColumnName="Hotel_Reviews" />
+                <ScalarProperty Name="Hotel_Location" ColumnName="Hotel_Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="Model1.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+                <ScalarProperty Name="Room_Type" ColumnName="Room_Type" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Hotal_Name" ColumnName="Hotal_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SignUps">
+            <EntityTypeMapping TypeName="Model1.SignUp">
+              <MappingFragment StoreEntitySet="SignUp">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model1.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Hotal_Name" ColumnName="Hotal_Name" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Administrator_Room" TypeName="Model1.Administrator_Room" StoreEntitySet="Administrator_Room">
+            <EndProperty Name="Administator">
+              <ScalarProperty Name="Administrator_Id" ColumnName="Administrator_Id" />
+            </EndProperty>
+            <EndProperty Name="Room">
+              <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Room_Administrator" TypeName="Model1.Room_Administrator" StoreEntitySet="Room_Administrator">
+            <EndProperty Name="Room">
+              <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+            </EndProperty>
+            <EndProperty Name="Administator">
+              <ScalarProperty Name="Administrator_Id" ColumnName="Administrator_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="User_CustomerService" TypeName="Model1.User_CustomerService" StoreEntitySet="User_CustomerService">
+            <EndProperty Name="Customer_Service_Team">
+              <ScalarProperty Name="CustomerService_Id" ColumnName="CustomerService_Id" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

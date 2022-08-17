@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Hotel_Booking_SystemEntities1">
+    <EntitySetMapping Name="Administators">
+      <EntityTypeMapping TypeName="Model1.Administator">
+        <MappingFragment StoreEntitySet="Administator">
+          <ScalarProperty Name="Administrator_Id" ColumnName="Administrator_Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer_Service_Team">
+      <EntityTypeMapping TypeName="Model1.Customer_Service_Team">
+        <MappingFragment StoreEntitySet="Customer_Service_Team">
+          <ScalarProperty Name="CustomerService_Id" ColumnName="CustomerService_Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hotels">
+      <EntityTypeMapping TypeName="Model1.Hotel">
+        <MappingFragment StoreEntitySet="Hotel">
+          <ScalarProperty Name="Hotal_Name" ColumnName="Hotal_Name" />
+          <ScalarProperty Name="Hotel_Reviews" ColumnName="Hotel_Reviews" />
+          <ScalarProperty Name="Hotel_Location" ColumnName="Hotel_Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="Model1.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+          <ScalarProperty Name="Room_Type" ColumnName="Room_Type" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Hotal_Name" ColumnName="Hotal_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SignUps">
+      <EntityTypeMapping TypeName="Model1.SignUp">
+        <MappingFragment StoreEntitySet="SignUp">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Model1.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Hotal_Name" ColumnName="Hotal_Name" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Administrator_Room" TypeName="Model1.Administrator_Room" StoreEntitySet="Administrator_Room">
+      <EndProperty Name="Administator">
+        <ScalarProperty Name="Administrator_Id" ColumnName="Administrator_Id" />
+      </EndProperty>
+      <EndProperty Name="Room">
+        <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Room_Administrator" TypeName="Model1.Room_Administrator" StoreEntitySet="Room_Administrator">
+      <EndProperty Name="Room">
+        <ScalarProperty Name="Room_Id" ColumnName="Room_Id" />
+      </EndProperty>
+      <EndProperty Name="Administator">
+        <ScalarProperty Name="Administrator_Id" ColumnName="Administrator_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="User_CustomerService" TypeName="Model1.User_CustomerService" StoreEntitySet="User_CustomerService">
+      <EndProperty Name="Customer_Service_Team">
+        <ScalarProperty Name="CustomerService_Id" ColumnName="CustomerService_Id" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
